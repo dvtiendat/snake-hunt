@@ -5,14 +5,18 @@ from pygame.math import Vector2
 pygame.init()
 cell_size = 40
 cell_number = 20
+
 COLOUR = (0, 102, 0)
 WHITE = (255,255,255)
 GREEN = (51, 204, 51)
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
+
 running = True
+
 clock = pygame.time.Clock()
 SCREEN_UPDATE = pygame.USEREVENT
+
 pygame.time.set_timer(SCREEN_UPDATE, 100)
 
 game_font = pygame.font.Font(None,25)
