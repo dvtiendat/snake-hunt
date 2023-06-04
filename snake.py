@@ -5,10 +5,11 @@ from pygame.math import Vector2
 pygame.init()
 cell_size = 40
 cell_number = 20
-COLOUR = (0, 0, 0)
+COLOUR = (0, 102, 0)
 WHITE = (255,255,255)
-GREEN = (0, 255, 0)
+GREEN = (51, 204, 51)
 RED = (255, 0, 0)
+BLACK = (0, 0, 0)
 running = True
 clock = pygame.time.Clock()
 SCREEN_UPDATE = pygame.USEREVENT
@@ -16,7 +17,7 @@ pygame.time.set_timer(SCREEN_UPDATE, 100)
 
 game_font = pygame.font.Font(None,25)
 screen = pygame.display.set_mode((cell_size * cell_number + 1, cell_size * cell_number + 1))
-
+pygame.display.set_caption("Snake Hunt")
 
 class Fruit:
     def __init__(self):
@@ -27,6 +28,7 @@ class Fruit:
     def draw_fruit(self):
         fruit_rect = pygame.Rect(int(self.position.x * cell_size), int(self.position.y * cell_size), cell_size, cell_size)
         pygame.draw.rect(screen, RED, fruit_rect)
+        pygame.draw.rect(screen, (128, 0, 0), fruit_rect, 2)
         
     def randomize(self):
         self.x = random.randint(0, cell_number - 1)
@@ -45,6 +47,7 @@ class Snake:
             y_pos = int(body.y * cell_size)
             body_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
             pygame.draw.rect(screen, GREEN, body_rect)
+            pygame.draw.rect(screen, COLOUR, body_rect, 2)
 
     def move(self):
         if self.new_block == True:
@@ -111,7 +114,7 @@ main = MAIN()
 
 while running:
     clock.tick(60)
-    screen.fill(COLOUR)
+    screen.fill(BLACK)
     main.draw_things()
 
     for event in pygame.event.get():
