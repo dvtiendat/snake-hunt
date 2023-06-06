@@ -80,6 +80,7 @@ class MAIN:
         self.snake.move()
         self.collison()
         self.illegal()
+
     def draw_things(self):
         self.fruit.draw_fruit()
         self.snake.draw_snake()
@@ -113,6 +114,37 @@ class MAIN:
         score_y = int(cell_number * cell_size - 40)
         score_rect = score_surface.get_rect(center = (score_x, score_y))
         screen.blit(score_surface, score_rect )
+
+    #------------------------AI CONTROL----------------------------------#
+    def reset(self):
+        self.bodies = [Vector2(10,6), Vector2(10,7), Vector2(10,8)]
+        self.direction = Vector2(0,0)
+
+    def step (self, action):
+        self.reward = 0
+        self.done = 0
+
+        if action == 0: # move right
+            self.snake.direction = Vector2(1,0)
+            self.reward -= 1
+        if action == 1: # move left
+            self.snake.direction = Vector2(-1,0)
+            self.reward -= 1
+        if action == 2: # move up
+            self.snake.direction = Vector2(0,-1)
+            self.reward -= 1
+        if action == 3: # move down
+            self.snake.direction = Vector2(0,1)
+            self.reward -= 1
+
+        self.update()
+
+         # x,y coordinate of head of snake and fruit
+        state = [self.snake.bodies[0][0], self.snake.bodies[0][1], self.fruit.position[0], self.fruit.position[1]] 
+        return self.reward, self.state, self.done       
+
+        
+
 
 main = MAIN()
 
